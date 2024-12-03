@@ -35,10 +35,12 @@ userSchema.methods.generateToken = function(){
     return token;
 }
 
+//this is instance method
 userSchema.methods.comparePassword =async function(password){
     return await bcrypt.compare(password , this.password)
 }
 
+//this is static method
 userSchema.statics.hashPassword = async function(password){
     return await bcrypt.hash(password,10);
 }
