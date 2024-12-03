@@ -1,24 +1,32 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react'
+import { Link , useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import {UserDataContext} from '../context/UserContext';
 function UserRegister() {
-
+    const navigate = useNavigate();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email ,setEmail] = useState('');
     const [password ,setPassword] = useState('');
     const [userData , setuserData] = useState({});
    
-    const submitHandler=(e)=>{
+    const {user , setUser} = useContext(UserDataContext);
+    const submitHandler= async (e)=>{
         e.preventDefault();
-        setuserData({
+        const newUser = {
             fullname:{
-            firstName:firstName,
-            lastName:lastName
+            firstname:firstName,
+            lastname:lastName
             },
             email:email,
             password:password
-        })
-        console.log(userData);
+        }
+        const response = await axios.post(`http://localhost:4000/users/register`, newUser)
+        if(response.status === 201){
+            const data = response.data;
+            setUser(data.user);
+            navigate('/home')
+        }
         setFirstName('')
         setLastName('')
         setEmail('')
@@ -83,7 +91,7 @@ function UserRegister() {
           className="bg-[#111] text-white mb-7 rounded px-2 py-2  w-full text-lg placeholder:text-base"
           type="submit"
         >
-          Login
+          Create Account
         </button>
         <p className="text-center">
           Already have an account?
