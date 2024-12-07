@@ -17,7 +17,7 @@ function WaitingForDriver(props) {
             <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p>
          </div>
          </div>
-         
+        
          
          <div className='flex gap-2 flex-col justify-between items-center'>
             
