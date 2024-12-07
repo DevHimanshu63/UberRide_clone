@@ -23,7 +23,8 @@ function App() {
         <Route path="/home" exact element={
           <UserProtectedWrapper>
               <Home />
-          </UserProtectedWrapper>} />
+           </UserProtectedWrapper>
+        } />
           <Route path="/userlogout" exact element={
           <UserProtectedWrapper>
               <UserLogout />
