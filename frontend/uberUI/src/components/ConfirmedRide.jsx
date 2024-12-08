@@ -17,21 +17,21 @@ function ConfirmedRide(props) {
                     <FaUserCircle size={'20px'}/>
                     <div>
                         <h3 className='text-lg font-medium'>128/33</h3>
-                        <p className='text-sm -mt-1 text-gray-600'>New Delhi , Haryana</p>
+                        <p className='text-sm -mt-1 text-gray-600'>{props.pickup}</p>
                     </div>    
                 </div>
                 <div className='flex items-center gap-5 p-3 border-b-2'>
                    <FaLocationDot size={'20px'} /> 
                     <div>
                         <h3 className='text-lg font-medium'>128/33</h3>
-                        <p className='text-sm -mt-1 text-gray-600'>New Delhi , Haryana</p>
+                        <p className='text-sm -mt-1 text-gray-600'>{props.destination}</p>
                     </div>    
                 </div>
                 <div className='flex items-center gap-5 p-3 '>
                     <GiTakeMyMoney size={'20px'}/>
                     <div>
-                        <h3 className='text-lg font-medium'>128/33</h3>
-                        <p className='text-sm -mt-1 text-gray-600'>New Delhi , Haryana</p>
+                        <h3 className='text-lg font-medium'>₹ {props.fare[props.vehicleType]}</h3>
+                        <p className='text-sm -mt-1 text-gray-600'>Cash Cash</p>
                     </div>    
                 </div>
             </div>
@@ -39,6 +39,7 @@ function ConfirmedRide(props) {
             onClick={()=>{
                 props.setVehicleFound(true)
                 props.setConfirmedRidePanel(false)
+                props.createRide()
             }}  
             className='w-full mt-5 text-white bg-green-600 font-semibold rounded-lg p-2'>Confirm</button>
          </div>

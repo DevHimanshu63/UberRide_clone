@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 
 
 export const CaptainDataContext = createContext()
@@ -20,6 +20,11 @@ function CaptainContext({children}) {
         setError,
         updateCaptain,
     }
+
+    // useEffect(()=>{
+    //   console.log('captainData', captain);
+      
+    // },[captain])
 
   return (
     <CaptainDataContext.Provider value={value}>

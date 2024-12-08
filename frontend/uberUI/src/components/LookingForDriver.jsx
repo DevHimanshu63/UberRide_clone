@@ -17,21 +17,21 @@ function LookingForDriver(props) {
                     <FaUserCircle size={'20px'}/>
                     <div>
                         <h3 className='text-lg font-medium'>128/33</h3>
-                        <p className='text-sm -mt-1 text-gray-600'>New Delhi , Haryana</p>
+                        <p className='text-sm -mt-1 text-gray-600'>{props.pickup}</p>
                     </div>    
                 </div>
                 <div className='flex items-center gap-5 p-3 border-b-2'>
                    <FaLocationDot size={'20px'} /> 
                     <div>
                         <h3 className='text-lg font-medium'>128/33</h3>
-                        <p className='text-sm -mt-1 text-gray-600'>New Delhi , Haryana</p>
+                        <p className='text-sm -mt-1 text-gray-600'>{props.destination}</p>
                     </div>    
                 </div>
                 <div className='flex items-center gap-5 p-3 '>
                     <GiTakeMyMoney size={'20px'}/>
                     <div>
-                        <h3 className='text-lg font-medium'>128/33</h3>
-                        <p className='text-sm -mt-1 text-gray-600'>New Delhi , Haryana</p>
+                        <p className='text-lg font-semibold -mt-1 text-black'>₹ {props.fare[props.vehicleType]}</p>
+                        <h3 className='text-lg font-medium'>Cash Cash</h3>
                     </div>    
                 </div>
             </div>
