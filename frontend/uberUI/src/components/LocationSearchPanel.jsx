@@ -40,14 +40,6 @@ function LocationSearchPanel(props) {
                 </div>
             )
         })}
-        
-        {/* <div className='flex border-2  border-gray-100 active:border-black rounded-xl p-3 my-2 items-center justify-start gap-4'>
-            <h2 className='bg-[#eee] rounded-full h-10 w-10 flex items-center justify-center'><FaLocationDot /></h2>
-            <h4 className='text-lg font-medium'>1522, Jyotikunj Dwarka CRPF Camp Complex 110078 </h4>
-        </div> */}
-        
-        
-        
     </div>
   )
 }

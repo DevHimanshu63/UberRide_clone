@@ -12,7 +12,6 @@ function Home() {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
   const [panelOpen, setPanelOpen] = useState(false);
-
   const panelRef = useRef(null);
   const panelCloseRef = useRef(null);
   const vehiclePanelRef = useRef(null);
@@ -23,9 +22,20 @@ function Home() {
   const [confirmedRidePanel, setConfirmedRidePanel] = useState(false)
   const [vehicleFound, setVehicleFound] = useState(false)
   const [waitingForDriver, setWaitingForDriver] = useState(false)
+  const [pickupSuggestions, setPickupSuggestions] = useState([])
+  const [destinationSuggestions, setDestinationSuggestions] = useState([])
+  const [activeField , setActiveField] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
+
   };
+
+
+  const handlePickupChange=async()=>{
+
+  }
+
+
 
   useGSAP(
     function () {
@@ -149,7 +159,10 @@ function Home() {
           </form>
         </div>
         <div ref={panelRef} className="bg-white h-0">
-          <LocationSearchPanel   setPanelOpen={setPanelOpen}  setVehiclePanel={setVehiclePanel}/>
+          <LocationSearchPanel   
+          setPanelOpen={setPanelOpen} 
+          setVehiclePanel={setVehiclePanel}/>
+
         </div>
       </div>
 
