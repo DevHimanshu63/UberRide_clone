@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { IoIosArrowDown } from "react-icons/io";
@@ -8,6 +8,8 @@ import VehiclePanel from "./VehiclePanel";
 import ConfirmedRide from "../components/ConfirmedRide";
 import LookingForDriver from "../components/LookingForDriver";
 import WaitingForDriver from "../components/WaitingForDriver";
+import { SocketContext } from "../context/SocketProvider";
+import { UserDataContext } from "../context/UserContext";
 function Home() {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
@@ -27,9 +29,13 @@ function Home() {
   const [activeField, setActiveField] = useState(null);
   const [fare, setFare] = useState({});
   const [vehicleType, setVehicleType] = useState(null);
-  console.log("pickup-------->", pickup);
-  console.log("destination----->", destination);
-  
+
+  const {sendMessage} = useContext(SocketContext)
+  const {user} = useContext(UserDataContext)
+
+  useEffect(()=>{
+    sendMessage("join" ,{userType:"user" , userId:user?._id} )
+  })
   
   const handleSubmit = async (e) => {
     e.preventDefault();
