@@ -27,15 +27,31 @@ function initializeSocket(server) {
             }
         })  
 
+        socket.on('update-location-captain', async (data) =>{
+            const { userId ,userType ,location} = data;
+            console.log("Location received from client: " + userId + " " + location.ltd + " " + location.lng);
+            if(!location || !location.ltd || !location.lng){
+                return socket.emit('error',{message:'invalid location'})
+            }
+            
+           await captainModel.findByIdAndUpdate(userId , {
+            location:{
+                ltd:location.ltd,
+                lng:location.lng
+            } })
+        })
+
+       
+
         socket.on('disconnect', () => {
             console.log('Client disconnected');
         });
     });
 }
 
-function sendMessageToSocketId(socketId , message) {
+function sendMessageToSocketId(socketId , messageObject) {
     if(io){
-        io.to(socketId).emit('message',message);
+        io.to(socketId).emit(messageObject.event,messageObject.data);
     }else{
         console.log('No active socket connection');
     }

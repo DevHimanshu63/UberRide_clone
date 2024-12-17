@@ -31,7 +31,7 @@ const SocketProvider = ({ children }) => {
 
 
     return (
-        <SocketContext.Provider value={{ sendMessage ,  recieveMessage}}>
+        <SocketContext.Provider value={{ sendMessage ,  recieveMessage , socket}}>
             {children}
         </SocketContext.Provider>
     );

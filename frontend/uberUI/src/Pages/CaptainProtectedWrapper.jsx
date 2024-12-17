@@ -11,21 +11,22 @@ function CaptainProtectedWrapper({children}) {
         if(!token){
             navigate('/captainlogin');
         }
+        axios.get('http://localhost:4000/captains/profile',{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }).then((response)=>{
+          if(response.status === 200){
+              setCaptain(response.data);
+              setIsLoading(false);
+          }
+        }).catch((err)=>{
+          console.log(err);
+          localStorage.removeItem('token');
+          navigate('/captainlogin');
+      })
     },[token , navigate])
-    axios.get('http://localhost:4000/captains/profile',{
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }).then((response)=>{
-        if(response.status === 200){
-            setCaptain(response.data.captain);
-            setIsLoading(false);
-        }
-      }).catch((err)=>{
-        console.log(err);
-        localStorage.removeItem('token');
-        navigate('/captainlogin');
-    })
+    
     
   return (
     <>

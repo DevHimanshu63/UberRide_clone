@@ -17,6 +17,7 @@ function CaptainLogin() {
         const response = await axios.post(`http://localhost:4000/captains/login`, captainData)
         if(response.status === 200) {
             const data = response.data;
+            console.log('data getting after login from backend', data);
             setCaptain(data.captain);
             localStorage.setItem('token', data.token);
             navigate('/captain-home')

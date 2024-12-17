@@ -1,4 +1,5 @@
 const axios = require('axios');
+const captainModel = require('../models/captain.model');
 module.exports.getAddressCoordinate = async (address) =>{
      const apiKey = process.env.GOOGLE_MAP_API;
      const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
@@ -65,4 +66,15 @@ module.exports.getAutoCompleteSuggestions = async (input) => {
         console.error(error);
         throw error;
     }
+}
+
+module.exports.getCaptainsInTheRadius = async (ltd , lng , radius) => {
+    const captains = await captainModel.find({
+        location: {
+           $geoWithin: {
+             $centerSphere: [ [ ltd , lng ], radius / 6371 ] // Earth radius in kilometers
+           }
+        }
+    })
+    return captains;
 }

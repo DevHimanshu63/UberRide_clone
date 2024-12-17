@@ -3,14 +3,36 @@ import { FaChevronDown } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaUserCircle } from "react-icons/fa";
 import { GiTakeMyMoney } from "react-icons/gi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 function ConfirmRidePopUp(props) {
-    const [otp , setOtp] = useState();
+  const [otp, setOtp] = useState("");
+  const navigate = useNavigate();
 
-  const submitHandler = (e) => {
+  const submitHander = async (e) => {
     e.preventDefault();
+    console.log("submitHander called");
     
+
+    const response = await axios.get(`http://localhost:4000/rides/start-ride`, {
+      params: {
+        rideId: props.ride._id,
+        otp: otp,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    console.log("response from the start-ride api",response);
+    
+    
+    if (response.status === 200) {
+      props.setConfirmRidePopUpPanel(false);
+      props.setRidePopUpPanel(false);
+      navigate("/captain-riding");
+    }
   };
+
   return (
     <div>
       <h5
@@ -31,7 +53,9 @@ function ConfirmRidePopUp(props) {
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdlMd7stpWUCmjpfRjUsQ72xSWikidbgaI1w&s"
             alt=""
           />
-          <h2 className="text-xl font-medium">Himanshu Singh</h2>
+          <h2 className="text-xl font-medium capitalize">
+            {props.ride?.user.fullname.firstname}{" "}
+          </h2>
         </div>
         <h5 className="text-lg font-semibold ">2.2 KM</h5>
       </div>
@@ -41,48 +65,50 @@ function ConfirmRidePopUp(props) {
             <FaUserCircle size={"20px"} />
             <div>
               <h3 className="text-lg font-medium">128/33</h3>
-              <p className="text-sm -mt-1 text-gray-600">New Delhi , Haryana</p>
+              <p className="text-sm -mt-1 text-gray-600">
+                {props.ride?.pickup}
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-5 p-3 border-b-2">
             <FaLocationDot size={"20px"} />
             <div>
               <h3 className="text-lg font-medium">128/33</h3>
-              <p className="text-sm -mt-1 text-gray-600">New Delhi , Haryana</p>
+              <p className="text-sm -mt-1 text-gray-600">
+                {props.ride?.destination}
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-5 p-3 ">
             <GiTakeMyMoney size={"20px"} />
             <div>
-              <h3 className="text-lg font-medium">₹ 200</h3>
+              <h3 className="text-lg font-medium">₹ {props.ride?.fare}</h3>
               <p className="text-sm -mt-1 text-gray-600">Cash cash</p>
             </div>
           </div>
         </div>
 
         <div className="mt-6 w-full">
-          <form onSubmit={submitHandler}>
+          <form onSubmit={submitHander}>
             <input
-              type="text"
               value={otp}
-              onChange={(e)=>setOtp(e.target.value)}
+              onChange={(e) => setOtp(e.target.value)}
+              type="text"
+              className="bg-[#eee] px-6 py-4 font-mono text-lg rounded-lg w-full mt-3"
               placeholder="Enter OTP"
-              className="bg-[#eee] px-6 py-4 text-lg font-mono rounded-lg w-full mt-3"
             />
-            <Link
-              to={"/captain-riding"}
-              className="w-full text-center flex justify-center mt-5 text-white bg-green-600 font-semibold rounded-lg p-2"
-            >
-              Confirm{" "}
-            </Link>
+
+            <button className="w-full mt-5 text-lg flex justify-center bg-green-600 text-white font-semibold p-3 rounded-lg">
+              Confirm
+            </button>
             <button
               onClick={() => {
-                props.setConfirmRidePopUpPanel(false);
-                props.setRidePopUpPanel(false);
+                props.setConfirmRidePopupPanel(false);
+                props.setRidePopupPanel(false);
               }}
-              className="w-full mt-2 text-white bg-red-400 font-semibold rounded-lg p-2"
+              className="w-full mt-2 bg-red-600 text-lg text-white font-semibold p-3 rounded-lg"
             >
-              Cancel{" "}
+              Cancel
             </button>
           </form>
         </div>

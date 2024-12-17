@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {body , query} = require('express-validator')
-const {createRide , getFare} = require('../controllers/ride.controller.js')
+const {createRide , getFare , confirmRide , startRide} = require('../controllers/ride.controller.js')
 const authMiddleware = require('../middleware/auth.middleware.js');
 router.post('/create', 
     authMiddleware.authUser,
@@ -18,5 +18,17 @@ router.get('/get-fare',
     getFare 
 )
 
+router.post('/confirm' ,
+        authMiddleware.authCaptain,
+        body('rideId').isMongoId().withMessage('Invalid ride id'),
+        confirmRide
+)
+
+
+router.get('/start-ride', authMiddleware.authCaptain,
+    query('rideId').isMongoId().withMessage('Invalid ride id'),
+    query('otp').isString().isLength({min:6 , max:6}).withMessage('otp  must be at least 6 characters long'),
+    startRide
+)
 
 module.exports = router;

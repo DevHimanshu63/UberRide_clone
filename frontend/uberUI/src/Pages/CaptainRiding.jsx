@@ -58,7 +58,6 @@ function CaptainRiding() {
           <div className="flex w-full items-center p-6 justify-between bg-yellow-400">
             <h4 className="text-xl font-semibold ">4 KM away</h4>
             <button
-            onClick={{}}
             className="w-full text-white bg-green-600 font-semibold rounded-lg p-3 ">
               Complete Ride
             </button>

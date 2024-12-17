@@ -8,8 +8,10 @@ import VehiclePanel from "./VehiclePanel";
 import ConfirmedRide from "../components/ConfirmedRide";
 import LookingForDriver from "../components/LookingForDriver";
 import WaitingForDriver from "../components/WaitingForDriver";
-import { SocketContext } from "../context/SocketProvider";
+import { SocketContext  } from "../context/SocketProvider";
 import { UserDataContext } from "../context/UserContext";
+import { Socket } from "socket.io-client";
+import { useNavigate } from "react-router-dom";
 function Home() {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
@@ -29,17 +31,38 @@ function Home() {
   const [activeField, setActiveField] = useState(null);
   const [fare, setFare] = useState({});
   const [vehicleType, setVehicleType] = useState(null);
+  const [ride, setRide] = useState(null);
+  const navigate = useNavigate()
 
-  const {sendMessage} = useContext(SocketContext)
+  const {sendMessage , socket} = useContext(SocketContext)
   const {user} = useContext(UserDataContext)
 
+  
   useEffect(()=>{
     sendMessage("join" ,{userType:"user" , userId:user?._id} )
-  })
+  },[user])
   
   const handleSubmit = async (e) => {
     e.preventDefault();
   };
+
+  socket.on('ride-confirmed', ride =>{
+    setVehicleFound(false)
+    setWaitingForDriver(true) ;
+    setRide(ride)
+    console.log("ride confirmed data of captain",ride);
+  })
+
+  
+  socket.on('ride-started',ride =>{
+    setWaitingForDriver(false)
+    navigate('/riding')
+    console.log('ride-started socket recieved after otp submission',ride);
+  })
+   
+  
+  
+ 
 
   const handlePickupChange = async (e) => {
     setPickup(e.target.value);
@@ -308,6 +331,7 @@ function Home() {
           destination={destination}
           fare={fare}
           vehicleType={vehicleType}
+          
         />
       </div>
 
@@ -330,7 +354,7 @@ function Home() {
         ref={waitingForDriverRef}
         className="fixed w-full z-10  bg-white bottom-0  px-3 py-6 pt-12"
       >
-        <WaitingForDriver setWaitingForDriver={setWaitingForDriver} />
+        <WaitingForDriver ride={ride}   setWaitingForDriver={setWaitingForDriver} />
       </div>
     </div>
   );
