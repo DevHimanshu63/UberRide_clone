@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useLocation } from "react-router-dom";
 import { IoExitOutline } from "react-icons/io5";
 import { IoIosArrowUp } from "react-icons/io";
 import { useGSAP } from "@gsap/react";
@@ -8,6 +8,11 @@ import FinishRide from "../components/FinishRide";
 function CaptainRiding() {
     const [finishRidepanel , setFinishRidepanel] = useState(false)
     const finishRidePanelRef = useRef(null);
+    const location = useLocation();
+    console.log('Location state:', location.state);
+    const rideData = location.state?.ride;
+    console.log('rideData',rideData);
+    
 
     
     useGSAP(function(){
@@ -65,7 +70,7 @@ function CaptainRiding() {
         </div>
       </div>
       <div ref={finishRidePanelRef} className="fixed h-[90%] translate-y-full w-full z-10 bg-white bottom-0  px-3 py-10 pt-12">
-         <FinishRide setFinishRidepanel={setFinishRidepanel}/>
+         <FinishRide rideData={rideData} setFinishRidepanel={setFinishRidepanel}/>
       </div>
     </div>
   );

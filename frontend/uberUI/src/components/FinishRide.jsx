@@ -23,7 +23,7 @@ function FinishRide(props) {
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdlMd7stpWUCmjpfRjUsQ72xSWikidbgaI1w&s"
             alt=""
           />
-          <h2 className="text-xl font-medium">Himanshu Singh</h2>
+          <h2 className="text-xl font-medium">{props.rideData?.user.fullname.firstname}  {props.rideData?.user.fullname.lastname}</h2>
         </div>
         <h5 className="text-lg font-semibold ">2.2 KM</h5>
       </div>
@@ -33,20 +33,20 @@ function FinishRide(props) {
             <FaUserCircle size={"20px"} />
             <div>
               <h3 className="text-lg font-medium">128/33</h3>
-              <p className="text-sm -mt-1 text-gray-600">New Delhi , Haryana</p>
+              <p className="text-sm -mt-1 text-gray-600">{props.rideData?.pickup}</p>
             </div>
           </div>
           <div className="flex items-center gap-5 p-3 border-b-2">
             <FaLocationDot size={"20px"} />
             <div>
               <h3 className="text-lg font-medium">128/33</h3>
-              <p className="text-sm -mt-1 text-gray-600">New Delhi , Haryana</p>
+              <p className="text-sm -mt-1 text-gray-600">{props.rideData?.destination}</p>
             </div>
           </div>
           <div className="flex items-center gap-5 p-3 ">
             <GiTakeMyMoney size={"20px"} />
             <div>
-              <h3 className="text-lg font-medium">₹ 200</h3>
+              <h3 className="text-lg font-medium">₹ {props.rideData?.fare}</h3>
               <p className="text-sm -mt-1 text-gray-600">Cash cash</p>
             </div>
           </div>
