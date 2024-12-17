@@ -53,10 +53,10 @@ function Home() {
     console.log("ride confirmed data of captain",ride);
   })
 
-  
+
   socket.on('ride-started',ride =>{
     setWaitingForDriver(false)
-    navigate('/riding')
+    navigate('/riding' , {state : {ride}})
     console.log('ride-started socket recieved after otp submission',ride);
   })
    

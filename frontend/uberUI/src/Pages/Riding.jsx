@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaUserCircle } from "react-icons/fa";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { IoMdHome } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link , useLocation, useNavigate } from "react-router-dom";
+import { SocketContext } from "../context/SocketProvider";
 function Riding() {
+  const location = useLocation();
+  const {ride} = location.state || {};
+  console.log(ride);
+  const {socket} = useContext(SocketContext);
+  const navigate = useNavigate();
+
+  socket.on('ride-ended',()=>{
+    navigate('/home');
+  })
+
+  
   return (
     <div className="h-screen">
         <Link to={'/home'} className="fixed right-2 top-2 h-10 w-10 bg-white flex items-center justify-center rounded-full">
@@ -26,8 +38,8 @@ function Riding() {
             alt=""
           />
           <div className="text-right">
-            <h2 className="text-lg font-medium">Himanshu singh</h2>
-            <h4 className="text-xl font-semibold -mt-1 -mb-1">UP30 Z 4731</h4>
+            <h2 className="text-lg font-medium">{ride?.captain.fullname.firstname} {ride?.captain.fullname.lastname}</h2>
+            <h4 className="text-xl font-semibold -mt-1 -mb-1">{ride.captain.vehicle.plate}</h4>
             <p className="text-sm text-gray-600">Maruti Suzuki Alto</p>
           </div>
         </div>
@@ -39,14 +51,14 @@ function Riding() {
               <div>
                 <h3 className="text-lg font-medium">128/33</h3>
                 <p className="text-sm -mt-1 text-gray-600">
-                  New Delhi , Haryana
+                  {ride?.destination}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-5 p-3 ">
               <GiTakeMyMoney size={"20px"} />
               <div>
-                <h3 className="text-lg font-medium">1200</h3>
+                <h3 className="text-lg font-medium">{ride?.fare}</h3>
                 <p className="text-sm -mt-1 text-gray-600">
                   Cash Payment
                 </p>
