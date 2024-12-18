@@ -9,6 +9,7 @@ import ConfirmRidePopUp from "../components/ConfirmRidePopUp";
 import { CaptainDataContext } from "../context/CaptainContext";
 import { SocketContext } from "../context/SocketProvider";
 import axios from "axios";
+import LiveTracking from "../components/LiveTracking";
 function CaptainHome() {
   const ridePopUpPanelRef = useRef(null);
   const confirmRidePopUpPanelRef = useRef(null);
@@ -123,11 +124,12 @@ function CaptainHome() {
         </Link>
       </div>
       <div className="h-3/5">
-        <img
+        {/* <img
           className="object-cover w-full h-full"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTABLUH3RR9WY4ogN9jIsbV0QTaQWXDvEWW1A&s"
           alt=""
-        />
+        /> */}
+        <LiveTracking/>
       </div>
       <div className="h-2/5 p-6">
         <CaptainDetails />

@@ -12,6 +12,7 @@ import { SocketContext  } from "../context/SocketProvider";
 import { UserDataContext } from "../context/UserContext";
 import { Socket } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
+import LiveTracking from "../components/LiveTracking";
 function Home() {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
@@ -235,12 +236,13 @@ function Home() {
         src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
         alt=""
       />
-      <div className="h-screen w-screen">
-        <img
+      <div className="h-2/3 w-screen">
+        {/* <img
           className="object-cover w-full h-full"
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTABLUH3RR9WY4ogN9jIsbV0QTaQWXDvEWW1A&s"
           alt=""
-        />
+        /> */}
+        <LiveTracking />
       </div>
 
       <div className="flex flex-col justify-end h-screen absolute top-0 w-full ">

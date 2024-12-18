@@ -139,3 +139,4 @@ module.exports.endRide = async({rideId , captain})=>{
 
     return ride;
 }
+

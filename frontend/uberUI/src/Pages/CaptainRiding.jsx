@@ -5,6 +5,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import FinishRide from "../components/FinishRide";
+import LiveTracking from "../components/LiveTracking";
 function CaptainRiding() {
     const [finishRidepanel , setFinishRidepanel] = useState(false)
     const finishRidePanelRef = useRef(null);
@@ -44,11 +45,12 @@ function CaptainRiding() {
           </Link>
         </div>
         <div className="h-4/5">
-          <img
+        <LiveTracking/>
+          {/* <img
             className="object-cover w-full h-full"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTABLUH3RR9WY4ogN9jIsbV0QTaQWXDvEWW1A&s"
             alt=""
-          />
+          /> */}
         </div>
         <div 
         onClick={()=>{
